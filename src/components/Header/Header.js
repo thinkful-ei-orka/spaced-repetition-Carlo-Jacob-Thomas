@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import TokenService from '../../services/token-service'
 import UserContext from '../../contexts/UserContext'
 import './Header.css'
@@ -18,11 +18,12 @@ class Header extends Component {
           {this.context.user.name}
         </span>
         <nav>
-          <Link
+          <NavLink
             onClick={this.handleLogoutClick}
+            className="nav-link"
             to='/login'>
             Logout
-          </Link>
+          </NavLink>
         </nav>
       </div>
     )
@@ -31,9 +32,9 @@ class Header extends Component {
   renderLoginLink() {
     return (
       <nav>
-        <Link to='/login'>Login</Link>
+        <NavLink className="nav-link" to='/login'>Login</NavLink>
         {' '}
-        <Link to='/register'>Sign up</Link>
+        <NavLink className="nav-link" to='/register'>Sign up</NavLink>
       </nav>
     )
   }
