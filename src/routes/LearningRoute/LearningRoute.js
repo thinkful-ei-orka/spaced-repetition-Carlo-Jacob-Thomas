@@ -38,10 +38,10 @@ class LearningRoute extends Component {
       .then(summary => {
         console.log(summary.wordCorrectCount);
         this.setState({
-          nextWord: summary.nextWord,
+          // nextWord: summary.nextWord,
           totalScore: summary.totalScore,
-          wordIncorrect: summary.wordIncorrectCount,
-          wordCorrect: summary.wordCorrectCount,
+          // wordIncorrect: summary.wordIncorrectCount,
+          // wordCorrect: summary.wordCorrectCount,
           answer: summary.answer,
           isCorrect: summary.isCorrect,
           guessBool: true
