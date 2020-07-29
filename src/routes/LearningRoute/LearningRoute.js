@@ -36,6 +36,7 @@ class LearningRoute extends Component {
 
     LanguageApiService.postGuess(guessBody)
       .then(summary => {
+        console.log(summary.wordCorrectCount);
         this.setState({
           nextWord: summary.nextWord,
           totalScore: summary.totalScore,
@@ -51,9 +52,14 @@ class LearningRoute extends Component {
 
   handleNextWord = () => {
     console.log('handleNextWord ran');
-    this.setState({
-      guessBool: false
+    LanguageApiService.getHead()
+    .then(head => {
+      this.setState({
+        head,
+        guessBool: false
+      })
     })
+
   }
 
   componentDidMount() {
@@ -68,7 +74,7 @@ class LearningRoute extends Component {
 
   render() {
 
-    console.log(this.state.loading);
+    console.log(this.state.wordCorrect);
     return (
       <section className="learning-container">
         {!this.state.loading && <h2>Translate the word: {this.state.head.original}</h2>}
