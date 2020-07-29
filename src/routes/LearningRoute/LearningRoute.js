@@ -37,11 +37,18 @@ class LearningRoute extends Component {
     LanguageApiService.postGuess(guessBody)
       .then(summary => {
         console.log(summary.wordCorrectCount);
+        let newCorrectScore = this.state.wordCorrect;
+        let newIncorrectScore = this.state.wordIncorrect;
+        if (summary.isCorrect) {
+          newCorrectScore++;
+        } else {
+          newIncorrectScore++;
+        }
         this.setState({
           // nextWord: summary.nextWord,
           totalScore: summary.totalScore,
-          // wordIncorrect: summary.wordIncorrectCount,
-          // wordCorrect: summary.wordCorrectCount,
+          wordIncorrect: newIncorrectScore,
+          wordCorrect: newCorrectScore,
           answer: summary.answer,
           isCorrect: summary.isCorrect,
           guessBool: true
@@ -71,6 +78,7 @@ class LearningRoute extends Component {
           head,
           wordIncorrect: head.incorrect_count,
           wordCorrect: head.correct_count,
+          totalScore: head.totalScore,
           loading: false,
         })
       })
