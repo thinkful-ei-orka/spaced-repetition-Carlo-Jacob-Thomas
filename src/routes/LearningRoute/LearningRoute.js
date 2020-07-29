@@ -56,6 +56,8 @@ class LearningRoute extends Component {
     .then(head => {
       this.setState({
         head,
+        wordIncorrect: head.incorrect_count,
+        wordCorrect: head.correct_count,
         guessBool: false
       })
     })
@@ -67,6 +69,8 @@ class LearningRoute extends Component {
       .then(head => {
         this.setState({
           head,
+          wordIncorrect: head.incorrect_count,
+          wordCorrect: head.correct_count,
           loading: false,
         })
       })
@@ -103,7 +107,6 @@ class LearningRoute extends Component {
         <div className="results-container center">
           <p>You have answered this word correctly {this.state.wordCorrect} times.</p>
           <p>You have answered this word incorrectly {this.state.wordIncorrect} times.</p>
-          <p>You have answered this word correctly {this.state.wordCorrect} times.</p>
           <p>Total Language Score: {this.state.totalScore}</p>
         </div>
 
