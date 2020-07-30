@@ -89,16 +89,16 @@ class LearningRoute extends Component {
     console.log(this.state.wordCorrect);
     return (
       <section className="learning-container">
-        {!this.state.loading && <h2>Translate the word: {this.state.head.original}</h2>}
+        {!this.state.loading && <h2>Translate the word:<span>{this.state.head.original}</span></h2>}
         <form id="learning-form">
 
           {/* {!this.state.guessBool && <Question handleSendGuess={this.handleSendGuess} />} */}
 
-          {!this.state.guessBool && <Label htmlFor='learning-input' className="text-center">
-            What's the translation for this word?<Required />
+          {!this.state.guessBool && <Label htmlFor='learn-guess-input' className="text-center">
+            What's the translation for this word?
           </Label>}
           {!this.state.guessBool && <Input
-            id='learning-input'
+            id='learn-guess-input'
             name='answer'
             className="center"
             required
