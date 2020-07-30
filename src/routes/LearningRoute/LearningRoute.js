@@ -10,11 +10,10 @@ class LearningRoute extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      head: null,
       nextWord: null,
       totalScore: null,
-      wordIncorrect: null,
-      wordCorrect: null,
+      wordIncorrectCount: null,
+      wordCorrectCount: null,
       answer: null,
       isCorrect: null,
       guessBool: false,
@@ -36,8 +35,8 @@ class LearningRoute extends Component {
     LanguageApiService.postGuess(guessBody)
       .then(summary => {
         console.log(summary.wordCorrectCount);
-        let newCorrectScore = this.state.wordCorrect;
-        let newIncorrectScore = this.state.wordIncorrect;
+        let newCorrectScore = this.state.wordCorrectCount;
+        let newIncorrectScore = this.state.wordIncorrectCount;
         if (summary.isCorrect) {
           newCorrectScore++;
         } else {
@@ -59,14 +58,15 @@ class LearningRoute extends Component {
   handleNextWord = () => {
     console.log('handleNextWord ran');
     LanguageApiService.getHead()
-    .then(head => {
-      this.setState({
-        head,
-        wordIncorrect: head.incorrect_count,
-        wordCorrect: head.correct_count,
-        guessBool: false
+      .then(head => {
+        this.setState({
+          nextWord: head.nextWord,
+          wordIncorrectCount: head.wordIncorrectCount,
+          wordCorrectCount: head.wordCorrectCount,
+          totalScore: head.totalScore,
+          guessBool: false
+        })
       })
-    })
 
   }
 
@@ -81,9 +81,9 @@ class LearningRoute extends Component {
     LanguageApiService.getHead()
       .then(head => {
         this.setState({
-          head,
-          wordIncorrect: head.incorrect_count,
-          wordCorrect: head.correct_count,
+          nextWord: head.nextWord,
+          wordIncorrectCount: head.wordIncorrectCount,
+          wordCorrectCount: head.wordCorrectCount,
           totalScore: head.totalScore,
           loading: false,
         })
@@ -93,7 +93,7 @@ class LearningRoute extends Component {
   render() {
     return (
       <section className="learning-container">
-        {!this.state.loading && <><h2>Translate the word:</h2><span>{this.state.head.original}</span></>}
+        {!this.state.loading && <><h2>Translate the word:</h2><span>{this.state.nextWord}</span></>}
         <form id="learning-form" onSubmit={this.handleSendGuess}>
 
           {/* {!this.state.guessBool && <Question handleSendGuess={this.handleSendGuess} />} */}
@@ -117,9 +117,9 @@ class LearningRoute extends Component {
         </form>
 
         <div className="results-container center">
-          <p>You have answered this word correctly {this.state.wordCorrect} times.</p>
-          <p>You have answered this word incorrectly {this.state.wordIncorrect} times.</p>
-          <p>Total Language Score: {this.state.totalScore}</p>
+          <p>Your total score is: {this.state.totalScore}</p>
+          <p>You have answered this word correctly {this.state.wordCorrectCount} times.</p>
+          <p>You have answered this word incorrectly {this.state.wordIncorrectCount} times.</p>
         </div>
 
       </section>
