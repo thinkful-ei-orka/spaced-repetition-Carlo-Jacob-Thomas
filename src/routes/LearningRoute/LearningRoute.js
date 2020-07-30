@@ -93,7 +93,7 @@ class LearningRoute extends Component {
   render() {
     return (
       <section className="learning-container">
-        {!this.state.loading && <h2>Translate the word:<span>{this.state.head.original}</span></h2>}
+        {!this.state.loading && <><h2>Translate the word:</h2><span>{this.state.head.original}</span></>}
         <form id="learning-form" onSubmit={this.handleSendGuess}>
 
           {/* {!this.state.guessBool && <Question handleSendGuess={this.handleSendGuess} />} */}
