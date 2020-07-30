@@ -10,6 +10,7 @@ import LearningRoute from "../../routes/LearningRoute/LearningRoute";
 import NotFoundRoute from "../../routes/NotFoundRoute/NotFoundRoute";
 import "./App.css";
 import fileContext from "../../contexts/fileContext";
+import MultipleChoice from "../../routes/MultipleChoice/MultipleChoice";
 
 export default class App extends Component {
   state = {
@@ -49,7 +50,8 @@ export default class App extends Component {
             {hasError && <p>There was an error! Oh no!</p>}
             <Switch>
               <PrivateRoute exact path={"/"} component={DashboardRoute} />
-              <PrivateRoute path={"/learn"} component={LearningRoute} />
+              <PrivateRoute exact path={"/learn"} component={LearningRoute} />
+              <PrivateRoute exact path={"/learn_mc"} component={MultipleChoice} />
               <PublicOnlyRoute
                 path={"/register"}
                 component={RegistrationRoute}
