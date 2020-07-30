@@ -18,16 +18,15 @@ class LearningRoute extends Component {
       answer: null,
       isCorrect: null,
       guessBool: false,
-      loading: true
+      loading: true,
+      guessTerm: null,
     };
-
-    this.guessTerm = React.createRef();
   }
 
 
   handleSendGuess = (e) => {
     e.preventDefault();
-    const guess = this.guessTerm.current.value;
+    const guess = this.state.guessTerm;
     console.log(guess);
 
     const guessBody = {
@@ -71,6 +70,13 @@ class LearningRoute extends Component {
 
   }
 
+  setAnswer = (val) => {
+    console.log(val.target.value)
+    this.setState({
+      guessTerm: val.target.value
+    })
+  }
+
   componentDidMount() {
     LanguageApiService.getHead()
       .then(head => {
@@ -85,12 +91,10 @@ class LearningRoute extends Component {
   }
 
   render() {
-
-    console.log(this.state.wordCorrect);
     return (
       <section className="learning-container">
         {!this.state.loading && <h2>Translate the word:<span>{this.state.head.original}</span></h2>}
-        <form id="learning-form">
+        <form id="learning-form" onSubmit={this.handleSendGuess}>
 
           {/* {!this.state.guessBool && <Question handleSendGuess={this.handleSendGuess} />} */}
 
@@ -102,11 +106,11 @@ class LearningRoute extends Component {
             name='answer'
             className="center"
             required
-            ref={this.guessTerm}
+            onChange={e => this.setAnswer(e)}
           />}
-          {!this.state.guessBool && <Button onClick={e => this.handleSendGuess(e)}>
+          {!this.state.guessBool && <button type="submit">
             Submit your answer
-          </Button>}
+          </button>}
 
           {this.state.guessBool && <Results isCorrect={this.state.isCorrect} answer={this.state.answer} onNextWordClick={this.handleNextWord} />}
 
