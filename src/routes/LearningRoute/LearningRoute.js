@@ -45,7 +45,7 @@ class LearningRoute extends Component {
           newIncorrectScore++;
         }
         this.setState({
-          // nextWord: summary.nextWord,
+          nextWord: summary.nextWord,
           totalScore: summary.totalScore,
           wordIncorrect: newIncorrectScore,
           wordCorrect: newCorrectScore,
@@ -63,10 +63,9 @@ class LearningRoute extends Component {
     LanguageApiService.getHead()
       .then(head => {
         this.setState({
-          nextWord: head.nextWord,
           wordIncorrectCount: head.wordIncorrectCount,
           wordCorrectCount: head.wordCorrectCount,
-          totalScore: head.totalScore,
+          
           guessBool: false
         })
       })
@@ -94,9 +93,17 @@ class LearningRoute extends Component {
   }
 
   render() {
+    let headerText = 'Translate the word:'
+    if (this.state.isCorrect && this.state.guessBool) {
+      headerText = 'You were correct! :D'
+    }
+    if (!this.state.isCorrect && this.state.guessBool) {
+      headerText = 'Good try, but not quite right :('
+    } 
+
     return (
       <section className="learning-container">
-        {!this.state.loading && <><h2>Translate the word:</h2><span>{this.state.nextWord}</span></>}
+        {!this.state.loading && <><h2>{headerText}</h2><span>{this.state.nextWord}</span></>}
         <form id="learning-form" onSubmit={this.handleSendGuess}>
 
           {/* {!this.state.guessBool && <Question handleSendGuess={this.handleSendGuess} />} */}
@@ -115,12 +122,15 @@ class LearningRoute extends Component {
             Submit your answer
           </button>}
 
-          {this.state.guessBool && <Results isCorrect={this.state.isCorrect} totalScore={this.state.totalScore} answer={this.state.answer} onNextWordClick={this.handleNextWord} />}
+          {this.state.guessBool && <Results isCorrect={this.state.isCorrect} totalScore={this.state.totalScore} guess={this.state.guessTerm} answer={this.state.answer} original={this.state.nextWord} onNextWordClick={this.handleNextWord} />}
 
         </form>
 
-        <div className="results-container center">
+        <div className="results-container center DisplayScore">
           <p>Your total score is: {this.state.totalScore}</p>
+        </div>    
+
+        <div className="results-container center">
           <p>You have answered this word correctly {this.state.wordCorrectCount} times.</p>
           <p>You have answered this word incorrectly {this.state.wordIncorrectCount} times.</p>
         </div>
