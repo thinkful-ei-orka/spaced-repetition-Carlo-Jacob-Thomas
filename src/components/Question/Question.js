@@ -16,7 +16,7 @@ class Question extends React.Component {
                     required
                     ref={this.guessTerm}
                 />
-                <Button onClick={event => this.props.handleSendGuess(event)}>
+                <Button onClick={this.props.handleSendGuess}>
                     Submit your answer
                 </Button>
             </>

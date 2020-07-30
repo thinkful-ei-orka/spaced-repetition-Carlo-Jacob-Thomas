@@ -8,6 +8,7 @@ class Results extends React.Component {
 
     render() {
 
+        
         let resultRender = <p className="results-p">Correct!</p>;
         if(!this.props.isCorrect) {
             resultRender = <p className="results-p">Incorrect :(</p>;
@@ -16,11 +17,12 @@ class Results extends React.Component {
 
         return (
             <>
+                <p>Your total score is: {this.props.totalScore}</p>
                 {resultRender}
                 <p className="results-p">The word is {this.props.answer}</p>
-                <Button onClick={this.props.onNextWordClick}>
+                <button onClick={this.props.onNextWordClick}>
                     Next Word
-                </Button>
+                </button>
             </>
         )
     }

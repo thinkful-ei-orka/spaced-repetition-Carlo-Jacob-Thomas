@@ -25,8 +25,10 @@ class LearningRoute extends Component {
 
   handleSendGuess = (e) => {
     e.preventDefault();
+    //const {answer} = e.target;
     const guess = this.state.guessTerm;
     console.log(guess);
+    //Sanswer.value = '';
 
     const guessBody = {
       guess
@@ -55,7 +57,8 @@ class LearningRoute extends Component {
 
   }
 
-  handleNextWord = () => {
+  handleNextWord = (event) => {
+    event.preventDefault();
     console.log('handleNextWord ran');
     LanguageApiService.getHead()
       .then(head => {
@@ -112,7 +115,7 @@ class LearningRoute extends Component {
             Submit your answer
           </button>}
 
-          {this.state.guessBool && <Results isCorrect={this.state.isCorrect} answer={this.state.answer} onNextWordClick={this.handleNextWord} />}
+          {this.state.guessBool && <Results isCorrect={this.state.isCorrect} totalScore={this.state.totalScore} answer={this.state.answer} onNextWordClick={this.handleNextWord} />}
 
         </form>
 
