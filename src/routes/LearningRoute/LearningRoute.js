@@ -112,7 +112,7 @@ class LearningRoute extends Component {
             Submit your answer
           </button>}
 
-          {this.state.guessBool && <Results isCorrect={this.state.isCorrect} answer={this.state.answer} onNextWordClick={this.handleNextWord} />}
+          {this.state.guessBool && <Results totalScore={this.state.totalScore} isCorrect={this.state.isCorrect} answer={this.state.nextWord} onNextWordClick={this.handleNextWord} />}
 
         </form>
 
