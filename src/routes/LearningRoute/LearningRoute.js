@@ -27,12 +27,14 @@ class LearningRoute extends Component {
       loading: true,
       guessTerm: '',
       speechBool: false,
+      listening: false,
     };
   }
 
   handleSpeech = () => {
     this.setState({
-      guessTerm: ''
+      guessTerm: '',
+      listening: true,
     })
 
     recognition.start();
@@ -48,6 +50,7 @@ class LearningRoute extends Component {
 
       this.setState({
         guessTerm: transcript.toLowerCase(),
+        listening: false,
       })
 
     }
@@ -150,10 +153,11 @@ class LearningRoute extends Component {
               onChange={e => this.setAnswer(e)}
             />}
             {!this.state.guessBool && <div id="speech_to_text_box">
-              <button id="speech_button" type="button" onClick={this.handleSpeech}>
+              <button id="speech_button" type="button" onClick={this.handleSpeech} disabled={this.state.listening}>
                 <i className="fas fa-microphone"></i>
               </button>
             </div>}
+            {this.state.listening && <p>Listening...</p>}
             {!this.state.guessBool && <button className="guess-submit" type="submit">
               Submit your answer
           </button>}
@@ -162,7 +166,13 @@ class LearningRoute extends Component {
               timeout={500}
               classNames='guess-anim'
               unmountOnExit>
-              <Results isCorrect={this.state.isCorrect} totalScore={this.state.totalScore} guess={this.state.guessTerm} answer={this.state.answer} original={this.state.nextWord} onNextWordClick={this.handleNextWord} />
+              <Results 
+              isCorrect={this.state.isCorrect} 
+              totalScore={this.state.totalScore} 
+              guess={this.state.guessTerm} 
+              answer={this.state.answer} 
+              original={this.state.nextWord} 
+              onNextWordClick={this.handleNextWord} />
             </CSSTransition>
 
           </form>
