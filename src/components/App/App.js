@@ -10,6 +10,7 @@ import LearningRoute from "../../routes/LearningRoute/LearningRoute";
 import NotFoundRoute from "../../routes/NotFoundRoute/NotFoundRoute";
 import "./App.css";
 import fileContext from "../../contexts/fileContext";
+import Speech from '../../components/SpeechToText/SpeechToText';
 
 export default class App extends Component {
   state = {
@@ -50,6 +51,7 @@ export default class App extends Component {
             <Switch>
               <PrivateRoute exact path={"/"} component={DashboardRoute} />
               <PrivateRoute path={"/learn"} component={LearningRoute} />
+              <PrivateRoute path={"/speech"} component={Speech} />
               <PublicOnlyRoute
                 path={"/register"}
                 component={RegistrationRoute}
