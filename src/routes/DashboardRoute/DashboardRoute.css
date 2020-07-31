@@ -32,7 +32,16 @@ h3 {
     padding: 10px 20px;
     margin: 10px auto;
     border-radius: 10px;
-    background-color: lightgreen;
+    background-color: #d9f2c7;
+}
+
+#learn_mc_button {
+    font-size: 1.2em;
+    width: 50vw;
+    padding: 10px 20px;
+    margin: 10px auto;
+    border-radius: 10px;
+    background-color: #d9f2c7;
 }
 
 .word_item {

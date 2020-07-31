@@ -141,6 +141,12 @@ class LearningRoute extends Component {
             {!this.state.guessBool && <Label htmlFor='learn-guess-input' className="text-center">
               What's the translation for this word?
           </Label>}
+
+            {!this.state.guessBool && <div id="speech_to_text_box">
+              <button id="speech_button" type="button" onClick={this.handleSpeech}>
+                <i className="fas fa-microphone"></i>
+              </button>
+            </div>}
             {!this.state.guessBool && <Input
               id='learn-guess-input'
               name='answer'
@@ -149,11 +155,6 @@ class LearningRoute extends Component {
               required
               onChange={e => this.setAnswer(e)}
             />}
-            {!this.state.guessBool && <div id="speech_to_text_box">
-              <button id="speech_button" type="button" onClick={this.handleSpeech}>
-                <i className="fas fa-microphone"></i>
-              </button>
-            </div>}
             {!this.state.guessBool && <button className="guess-submit" type="submit">
               Submit your answer
           </button>}

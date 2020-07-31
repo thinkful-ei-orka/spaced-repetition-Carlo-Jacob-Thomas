@@ -50,6 +50,21 @@
     margin-bottom: 10px;
 }
 
+#speech_to_text_box {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+#speech_button {
+    font-size: 2.5em;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    border: 2px solid grey;
+    background-color: #d9f2c7;
+    margin: 0 auto;
+}
+
 .guess-anim-enter{
     opacity: 0;
 }
@@ -66,4 +81,16 @@
 .guess-anim-exit-active{
     opacity: 0;
     transition: opacity 200ms;
+}
+
+@media screen and (min-width: 768px) {
+    #learning-form {
+        max-width: 50%;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    #learning-form {
+        max-width: 30%;
+    }
 }
