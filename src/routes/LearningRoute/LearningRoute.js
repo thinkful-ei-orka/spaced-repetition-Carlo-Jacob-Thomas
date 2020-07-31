@@ -7,6 +7,12 @@ import Button from '../../components/Button/Button';
 import Results from '../../components/Results/Results';
 import Question from '../../components/Question/Question';
 
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
+
+recognition.lang = 'en-US';
+// recognition.lang = 'es-MX';
+
 class LearningRoute extends Component {
   constructor(props) {
     super(props);
@@ -19,10 +25,34 @@ class LearningRoute extends Component {
       isCorrect: null,
       guessBool: false,
       loading: true,
-      guessTerm: null,
+      guessTerm: '',
+      speechBool: false,
     };
   }
 
+  handleSpeech = () => {
+    this.setState({
+      guessTerm: ''
+    })
+
+    recognition.start();
+
+    recognition.onstart = () => {
+      console.log('Voice activated');
+    }
+
+    recognition.onresult = (e) => {
+      let current = e.resultIndex;
+
+      let transcript = e.results[current][0].transcript;
+      console.log(transcript);
+
+      this.setState({
+        guessTerm: transcript.toLowerCase(),
+      })
+
+    }
+  };
 
   handleSendGuess = (e) => {
     e.preventDefault();
@@ -103,50 +133,56 @@ class LearningRoute extends Component {
 
     return (
       <CSSTransition
-            in={!this.state.loading}
-            timeout={200}
-            classNames='guess-anim'
-            unmountOnExit>
-      <section className="learning-container">
-        {!this.state.loading && <><h2>{headerText}</h2><span className='word-translate'>{this.state.nextWord}</span></>}
-        <form id="learning-form" onSubmit={this.handleSendGuess}>
+        in={!this.state.loading}
+        timeout={200}
+        classNames='guess-anim'
+        unmountOnExit>
+        <section className="learning-container">
+          {!this.state.loading && <><h2>{headerText}</h2><span className='word-translate'>{this.state.nextWord}</span></>}
+          <form id="learning-form" onSubmit={this.handleSendGuess}>
 
-          {/* {!this.state.guessBool && <Question handleSendGuess={this.handleSendGuess} />} */}
+            {/* {!this.state.guessBool && <Question handleSendGuess={this.handleSendGuess} />} */}
 
-          {!this.state.guessBool && <Label htmlFor='learn-guess-input' className="text-center">
-            What's the translation for this word?
+            {!this.state.guessBool && <Label htmlFor='learn-guess-input' className="text-center">
+              What's the translation for this word?
           </Label>}
-          {!this.state.guessBool && <Input
-            id='learn-guess-input'
-            name='answer'
-            className="center"
-            required
-            onChange={e => this.setAnswer(e)}
-          />}
-          {!this.state.guessBool && <button className="guess-submit" type="submit">
-            Submit your answer
+            {!this.state.guessBool && <Input
+              id='learn-guess-input'
+              name='answer'
+              className="center"
+              value={this.state.guessTerm}
+              required
+              onChange={e => this.setAnswer(e)}
+            />}
+            {!this.state.guessBool && <div id="speech_to_text_box">
+              <button id="speech_button" type="button" onClick={this.handleSpeech}>
+                <i className="fas fa-microphone"></i>
+              </button>
+            </div>}
+            {!this.state.guessBool && <button className="guess-submit" type="submit">
+              Submit your answer
           </button>}
-          <CSSTransition
-            in={this.state.guessBool}
-            timeout={500}
-            classNames='guess-anim'
-            unmountOnExit>
-            <Results isCorrect={this.state.isCorrect} totalScore={this.state.totalScore} guess={this.state.guessTerm} answer={this.state.answer} original={this.state.nextWord} onNextWordClick={this.handleNextWord} />
-          </CSSTransition>
+            <CSSTransition
+              in={this.state.guessBool}
+              timeout={500}
+              classNames='guess-anim'
+              unmountOnExit>
+              <Results isCorrect={this.state.isCorrect} totalScore={this.state.totalScore} guess={this.state.guessTerm} answer={this.state.answer} original={this.state.nextWord} onNextWordClick={this.handleNextWord} />
+            </CSSTransition>
 
-        </form>
+          </form>
 
 
-        <div className="results-container center DisplayScore">
-          <p>Your total score is: {this.state.totalScore}</p>
-        </div>
+          <div className="results-container center DisplayScore">
+            <p>Your total score is: {this.state.totalScore}</p>
+          </div>
 
-        <div className="results-container center">
-          <p>You have answered this word correctly {this.state.wordCorrectCount} times.</p>
-          <p>You have answered this word incorrectly {this.state.wordIncorrectCount} times.</p>
-        </div>
+          <div className="results-container center">
+            <p>You have answered this word correctly {this.state.wordCorrectCount} times.</p>
+            <p>You have answered this word incorrectly {this.state.wordIncorrectCount} times.</p>
+          </div>
 
-      </section>
+        </section>
       </CSSTransition>
     );
   }

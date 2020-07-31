@@ -4,6 +4,12 @@ import LanguageApiService from "../../services/language-service";
 import Results from "../../components/Results/Results";
 import "./MultipleChoice.css";
 
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
+
+recognition.lang = 'en-US';
+// recognition.lang = 'es-MX';
+
 export default class MultipleChoice extends React.Component {
   static contextType = fileContext;
 
@@ -20,6 +26,7 @@ export default class MultipleChoice extends React.Component {
       guessBool: false,
       loading: true,
       guessTerm: null,
+      speechBool: false,
     };
   }
   componentDidMount() {
@@ -65,7 +72,34 @@ export default class MultipleChoice extends React.Component {
   };
 
   handleSpeech = () => {
-    console.log("running speech");
+    this.setState({
+      guessTerm: ''
+    })
+
+    recognition.start();
+        
+    recognition.onstart = () => {
+        console.log('Voice activated');
+    }
+
+    recognition.onresult = (e) => {
+        let current = e.resultIndex;
+
+        let transcript = e.results[current][0].transcript;
+        console.log(transcript);
+        let speechBool = this.state.options.includes(transcript.toLowerCase());
+
+        if(speechBool) {
+          this.setState({
+            guessTerm: transcript.toLowerCase(),
+            speechBool: false
+          })
+        } else {
+          this.setState({
+            speechBool: true,
+          })
+        }  
+    }
   };
 
   handleSubmit = () => {
@@ -93,6 +127,7 @@ export default class MultipleChoice extends React.Component {
         isCorrect: summary.isCorrect,
         guessBool: true,
         guessTerm: "",
+        speechBool: false,
       });
     });
   };
@@ -106,6 +141,7 @@ export default class MultipleChoice extends React.Component {
           wordIncorrectCount: head.wordIncorrectCount,
           wordCorrectCount: head.wordCorrectCount,
           guessBool: false,
+          speechBool: false
         });
       })
       .then(() => {
@@ -144,7 +180,7 @@ export default class MultipleChoice extends React.Component {
         })}
         <div id="speech_to_text_box">
           <button id="speech_button" type="button" onClick={this.handleSpeech}>
-            Push to speak
+            <i className="fas fa-microphone"></i>
           </button>
         </div>
         <button id="submit_button" type="button" onClick={this.handleSubmit}>
@@ -156,12 +192,18 @@ export default class MultipleChoice extends React.Component {
 
   render() {
     let headerText = "Translate the word:";
+    let speechErrorText = "";
     if (this.state.isCorrect && this.state.guessBool) {
       headerText = "You were correct! :D";
     }
     if (!this.state.isCorrect && this.state.guessBool) {
       headerText = "Good try, but not quite right :(";
     }
+    if (this.state.speechBool) {
+      speechErrorText = "Please say one of the options."
+    }
+    
+
     return (
       <div id="mc_container">
         {!this.state.loading && (
@@ -170,6 +212,8 @@ export default class MultipleChoice extends React.Component {
             <span>{this.state.nextWord}</span>
           </>
         )}
+
+        {this.state.speechBool && <h3 style={{color: 'red'}}>{speechErrorText}</h3>}
 
         {!this.state.guessBool ? this.MultipleChoiceForm() : ""}
 

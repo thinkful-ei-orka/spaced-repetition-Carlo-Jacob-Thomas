@@ -4,6 +4,7 @@ const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecogni
 const recognition = new SpeechRecognition();
 
 recognition.lang = 'en-US';
+// recognition.lang = 'es-MX';
 
 class Speech extends React.Component {
     constructor() {
