@@ -76,7 +76,6 @@ class LearningRoute extends Component {
           newIncorrectScore++;
         }
         this.setState({
-          nextWord: summary.nextWord,
           totalScore: summary.totalScore,
           wordIncorrect: newIncorrectScore,
           wordCorrect: newCorrectScore,
@@ -93,9 +92,11 @@ class LearningRoute extends Component {
     LanguageApiService.getHead()
       .then(head => {
         this.setState({
+          nextWord: head.nextWord,
           wordIncorrectCount: head.wordIncorrectCount,
           wordCorrectCount: head.wordCorrectCount,
           guessBool: false,
+          guessTerm: ''
         })
       })
 
@@ -116,11 +117,13 @@ class LearningRoute extends Component {
           wordCorrectCount: head.wordCorrectCount,
           totalScore: head.totalScore,
           loading: false,
+          guessTerm: ''
         })
       })
   }
 
   render() {
+    console.log(this.state.nextWord);
     let headerText = 'Translate the word:'
     if (this.state.isCorrect && this.state.guessBool) {
       headerText = 'You were correct! :D'
