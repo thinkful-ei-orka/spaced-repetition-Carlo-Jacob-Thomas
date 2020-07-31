@@ -30,16 +30,22 @@ class Header extends Component {
   }
 
   renderLoginLink() {
-    return (
-      <nav>
-        <NavLink className="nav-link" to='/login'>Login</NavLink>
-        {' '}
-        <NavLink className="nav-link" to='/register'>Sign up</NavLink>
-      </nav>
-    )
+    if(window.location.pathname === '/login') {
+      return;
+    } else {
+      return (
+        <nav>
+          <NavLink className="nav-link" to='/login'>Login</NavLink>
+          {' '}
+          <NavLink className="nav-link" to='/register'>Sign up</NavLink>
+        </nav>
+      )
+    }
+
   }
 
   render() {
+
     return (
       <header>
         <h1>

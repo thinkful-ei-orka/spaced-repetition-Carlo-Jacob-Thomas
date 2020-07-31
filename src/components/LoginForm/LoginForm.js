@@ -79,7 +79,7 @@ class LoginForm extends Component {
               Login
               </Button>
             {' '}
-            <Link to='/register'>Don't have an account?</Link>
+            <Link to='/register'>Sign up</Link>
           </footer>
 
       </form>
