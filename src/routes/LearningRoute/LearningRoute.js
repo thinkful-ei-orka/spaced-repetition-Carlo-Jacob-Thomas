@@ -45,7 +45,6 @@ class LearningRoute extends Component {
       let current = e.resultIndex;
 
       let transcript = e.results[current][0].transcript;
-      console.log(transcript);
 
       this.setState({
         guessTerm: transcript.toLowerCase(),
@@ -58,7 +57,6 @@ class LearningRoute extends Component {
     e.preventDefault();
     //const {answer} = e.target;
     const guess = this.state.guessTerm;
-    console.log(guess);
     //Sanswer.value = '';
 
     const guessBody = {
@@ -67,7 +65,6 @@ class LearningRoute extends Component {
 
     LanguageApiService.postGuess(guessBody)
       .then(summary => {
-        console.log(summary.wordCorrectCount);
         let newCorrectScore = this.state.wordCorrectCount;
         let newIncorrectScore = this.state.wordIncorrectCount;
         if (summary.isCorrect) {
@@ -90,7 +87,6 @@ class LearningRoute extends Component {
 
   handleNextWord = (event) => {
     event.preventDefault();
-    console.log('handleNextWord ran');
     LanguageApiService.getHead()
       .then(head => {
         this.setState({
@@ -103,7 +99,6 @@ class LearningRoute extends Component {
   }
 
   setAnswer = (val) => {
-    console.log(val.target.value)
     this.setState({
       guessTerm: val.target.value
     })

@@ -22,7 +22,6 @@ const LanguageApiService = {
   },
   postGuess(guess) {
     const guessStringify = JSON.stringify(guess);
-    console.log(guessStringify);
     return fetch(`${config.API_ENDPOINT}/language/guess`, {
       method: "POST",
       headers: {

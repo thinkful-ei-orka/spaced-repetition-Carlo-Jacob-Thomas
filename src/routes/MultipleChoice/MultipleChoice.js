@@ -30,7 +30,6 @@ export default class MultipleChoice extends React.Component {
     };
   }
   componentDidMount() {
-    console.log(this.context.words);
 
     LanguageApiService.getWords()
       .then((res) => this.context.setLangAndWords(res))
@@ -86,7 +85,6 @@ export default class MultipleChoice extends React.Component {
         let current = e.resultIndex;
 
         let transcript = e.results[current][0].transcript;
-        console.log(transcript);
         let speechBool = this.state.options.includes(transcript.toLowerCase());
 
         if(speechBool) {
@@ -104,7 +102,6 @@ export default class MultipleChoice extends React.Component {
 
   handleSubmit = () => {
     const guess = this.state.guessTerm;
-    console.log(guess);
 
     const guessBody = {
       guess,
@@ -134,7 +131,6 @@ export default class MultipleChoice extends React.Component {
 
   handleNextWord = (event) => {
     event.preventDefault();
-    console.log("handleNextWord ran");
     LanguageApiService.getHead()
       .then((head) => {
         this.setState({
