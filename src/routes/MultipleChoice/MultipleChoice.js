@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import fileContext from "../../contexts/fileContext";
 import LanguageApiService from "../../services/language-service";
-import Results from '../../components/Results/Results';
+import Results from "../../components/Results/Results";
 import "./MultipleChoice.css";
 
 export default class MultipleChoice extends React.Component {
@@ -66,115 +66,124 @@ export default class MultipleChoice extends React.Component {
   };
 
   handleSpeech = () => {
-    console.log('running speech');
-  }
+    console.log("running speech");
+  };
 
   handleSubmit = () => {
     const guess = this.state.guessTerm;
     console.log(guess);
 
     const guessBody = {
-      guess
-    }
+      guess,
+    };
 
-    LanguageApiService.postGuess(guessBody)
-      .then(summary => {
-        let newCorrectScore = this.state.wordCorrectCount;
-        let newIncorrectScore = this.state.wordIncorrectCount;
-        if (summary.isCorrect) {
-          newCorrectScore++;
-        } else {
-          newIncorrectScore++;
-        }
-        this.setState({
-          nextWord: summary.nextWord,
-          totalScore: summary.totalScore,
-          wordIncorrect: newIncorrectScore,
-          wordCorrect: newCorrectScore,
-          answer: summary.answer,
-          isCorrect: summary.isCorrect,
-          guessBool: true,
-          guessTerm: '',
-        })
-      })
-  }
+    LanguageApiService.postGuess(guessBody).then((summary) => {
+      let newCorrectScore = this.state.wordCorrectCount;
+      let newIncorrectScore = this.state.wordIncorrectCount;
+      if (summary.isCorrect) {
+        newCorrectScore++;
+      } else {
+        newIncorrectScore++;
+      }
+      this.setState({
+        nextWord: summary.nextWord,
+        totalScore: summary.totalScore,
+        wordIncorrect: newIncorrectScore,
+        wordCorrect: newCorrectScore,
+        answer: summary.answer,
+        isCorrect: summary.isCorrect,
+        guessBool: true,
+        guessTerm: "",
+      });
+    });
+  };
 
   handleNextWord = (event) => {
     event.preventDefault();
-    console.log('handleNextWord ran');
+    console.log("handleNextWord ran");
     LanguageApiService.getHead()
-      .then(head => {
+      .then((head) => {
         this.setState({
           wordIncorrectCount: head.wordIncorrectCount,
           wordCorrectCount: head.wordCorrectCount,
-          guessBool: false
-        })
+          guessBool: false,
+        });
       })
       .then(() => {
         this.getOptions();
-      })
-
-  }
-
+      });
+  };
 
   MultipleChoiceForm = () => {
     return (
       <div id="mc_options_box">
         {this.state.options.map((option) => {
-        if (this.state.guessTerm === option) {
-          return (
-            <button
-              className="mc_option_selected"
-              type="button"
-              key={option}
-              value={option}
-            >
-              {option}
-            </button>
-          );
-        } else {
-          return (
-            <button
-              className="mc_option"
-              type="button"
-              key={option}
-              value={option}
-              onClick={(e) => this.updateGuess(e)}
-            >
-              {option}
-            </button>
-          );
-        }
-      })}
+          if (this.state.guessTerm === option) {
+            return (
+              <button
+                className="mc_option_selected"
+                type="button"
+                key={option}
+                value={option}
+              >
+                {option}
+              </button>
+            );
+          } else {
+            return (
+              <button
+                className="mc_option"
+                type="button"
+                key={option}
+                value={option}
+                onClick={(e) => this.updateGuess(e)}
+              >
+                {option}
+              </button>
+            );
+          }
+        })}
         <div id="speech_to_text_box">
-            <button id="speech_button" type="button" onClick={this.handleSpeech}>Push to speak</button>
-          </div>
-          <button id="submit_button" type="button" onClick={this.handleSubmit}>
-            Submit
+          <button id="speech_button" type="button" onClick={this.handleSpeech}>
+            Push to speak
           </button>
+        </div>
+        <button id="submit_button" type="button" onClick={this.handleSubmit}>
+          Submit
+        </button>
       </div>
-      
-    )
-  }
+    );
+  };
 
   render() {
-    let headerText = 'Translate the word:'
+    let headerText = "Translate the word:";
     if (this.state.isCorrect && this.state.guessBool) {
-      headerText = 'You were correct! :D'
+      headerText = "You were correct! :D";
     }
     if (!this.state.isCorrect && this.state.guessBool) {
-      headerText = 'Good try, but not quite right :('
-    } 
+      headerText = "Good try, but not quite right :(";
+    }
     return (
-      
       <div id="mc_container">
-        {this.state.guessBool ? '' : <h2>Translate the word: {this.state.nextWord}</h2>}
-        
-          {!this.state.guessBool
-            ? this.MultipleChoiceForm()
-            : ""}
-        
-        {this.state.guessBool && <Results isCorrect={this.state.isCorrect} totalScore={this.state.totalScore} guess={this.state.guessTerm} answer={this.state.answer} original={this.state.nextWord} onNextWordClick={this.handleNextWord} />}
+        {!this.state.loading && (
+          <>
+            <h2>{headerText}</h2>
+            <span>{this.state.nextWord}</span>
+          </>
+        )}
+
+        {!this.state.guessBool ? this.MultipleChoiceForm() : ""}
+
+        {this.state.guessBool && (
+          <Results
+            isCorrect={this.state.isCorrect}
+            totalScore={this.state.totalScore}
+            guess={this.state.guessTerm}
+            answer={this.state.answer}
+            original={this.state.nextWord}
+            onNextWordClick={this.handleNextWord}
+          />
+        )}
       </div>
     );
   }
