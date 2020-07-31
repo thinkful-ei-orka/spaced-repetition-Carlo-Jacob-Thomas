@@ -42,6 +42,7 @@ export default class MultipleChoice extends React.Component {
           wordCorrectCount: head.wordCorrectCount,
           totalScore: head.totalScore,
           loading: false,
+          guessTerm: ''
         });
       })
       .then(() => {
@@ -120,7 +121,6 @@ export default class MultipleChoice extends React.Component {
         newIncorrectScore++;
       }
       this.setState({
-        nextWord: summary.nextWord,
         totalScore: summary.totalScore,
         wordIncorrect: newIncorrectScore,
         wordCorrect: newCorrectScore,
@@ -138,10 +138,12 @@ export default class MultipleChoice extends React.Component {
     LanguageApiService.getHead()
       .then((head) => {
         this.setState({
+          nextWord: head.nextWord,
           wordIncorrectCount: head.wordIncorrectCount,
           wordCorrectCount: head.wordCorrectCount,
           guessBool: false,
-          speechBool: false
+          speechBool: false,
+          guessTerm: ''
         });
       })
       .then(() => {

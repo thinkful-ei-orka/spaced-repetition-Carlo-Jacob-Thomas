@@ -21,11 +21,13 @@ class RegistrationForm extends Component {
 
   handleSubmit = (ev) => {
     ev.preventDefault();
-    const { name, username, password } = ev.target;
+    const { name, username, password, language } = ev.target;
+    console.log(language.value);
     AuthApiService.postUser({
       name: name.value,
       username: username.value,
       password: password.value,
+      language: language.value
     })
       .then((user) => {
         name.value = "";
@@ -99,6 +101,7 @@ class RegistrationForm extends Component {
           <div>
           <select
             value={this.state.selectedLanguage}
+            name="language"
             key='select_box'
             id="language_select"
             onChange={this.setLangSelection}
