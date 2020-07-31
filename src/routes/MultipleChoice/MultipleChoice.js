@@ -153,8 +153,7 @@ export default class MultipleChoice extends React.Component {
 
   MultipleChoiceForm = () => {
     return (
-      <div id="mc_options_box">
-
+      <div className='mc-div-container'>
         {!this.state.guessBool && <div id="speech_to_text_box">
           <button id="speech_button" type="button" onClick={this.handleSpeech} disabled={this.state.listening}>
             <i className="fas fa-microphone"></i>
@@ -162,35 +161,37 @@ export default class MultipleChoice extends React.Component {
         </div>}
         {this.state.listening && <p>Listening...</p>}
 
-        {this.state.options.map((option) => {
-          if (this.state.guessTerm === option) {
-            return (
-              <button
-                className="mc_option_selected"
-                type="button"
-                key={option}
-                value={option}
-              >
-                {option}
-              </button>
-            );
-          } else {
-            return (
-              <button
-                className="mc_option"
-                type="button"
-                key={option}
-                value={option}
-                onClick={(e) => this.updateGuess(e)}
-              >
-                {option}
-              </button>
-            );
-          }
-        })}
+        <div id="mc_options_box">
+          {this.state.options.map((option) => {
+            if (this.state.guessTerm === option) {
+              return (
+                <button
+                  className="mc_option_selected"
+                  type="button"
+                  key={option}
+                  value={option}
+                >
+                  {option}
+                </button>
+              );
+            } else {
+              return (
+                <button
+                  className="mc_option"
+                  type="button"
+                  key={option}
+                  value={option}
+                  onClick={(e) => this.updateGuess(e)}
+                >
+                  {option}
+                </button>
+              );
+            }
+          })}
+        </div>
 
         <button id="submit_button" type="button" onClick={this.handleSubmit}>
-          Submit
+            Submit
         </button>
       </div>
     );
