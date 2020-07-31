@@ -13,7 +13,8 @@
   align-items: center;
 }
 
-.mc_option, .mc_option_selected {
+.mc_option,
+.mc_option_selected {
   float: left;
   margin: 8px 0px 0px 8px;
   padding: 4px 8px;
@@ -25,11 +26,9 @@
 }
 
 .mc_option {
-    background: #ffb787;
-    color: #00403c;
+  background: #ffb787;
+  color: #00403c;
 }
-
-
 
 .mc_option:hover {
   background: #d47114;
@@ -37,7 +36,6 @@
 }
 
 #speech_button {
-    margin-top: 10px;
-    margin-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
-

@@ -1,5 +1,4 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
 import fileContext from "../../contexts/fileContext";
 import LanguageApiService from "../../services/language-service";
 import Results from "../../components/Results/Results";
