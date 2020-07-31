@@ -27,6 +27,7 @@ export default class MultipleChoice extends React.Component {
       loading: true,
       guessTerm: null,
       speechBool: false,
+      listening: false,
     };
   }
   componentDidMount() {
@@ -72,31 +73,34 @@ export default class MultipleChoice extends React.Component {
 
   handleSpeech = () => {
     this.setState({
-      guessTerm: ''
+      guessTerm: '',
+      listening: true
     })
 
     recognition.start();
-        
+
     recognition.onstart = () => {
-        console.log('Voice activated');
+      console.log('Voice activated');
     }
 
     recognition.onresult = (e) => {
-        let current = e.resultIndex;
+      let current = e.resultIndex;
 
-        let transcript = e.results[current][0].transcript;
-        let speechBool = this.state.options.includes(transcript.toLowerCase());
+      let transcript = e.results[current][0].transcript;
+      let speechBool = this.state.options.includes(transcript.toLowerCase());
 
-        if(speechBool) {
-          this.setState({
-            guessTerm: transcript.toLowerCase(),
-            speechBool: false
-          })
-        } else {
-          this.setState({
-            speechBool: true,
-          })
-        }  
+      if (speechBool) {
+        this.setState({
+          guessTerm: transcript.toLowerCase(),
+          speechBool: false,
+          listening: false
+        })
+      } else {
+        this.setState({
+          speechBool: true,
+          listening: false
+        })
+      }
     }
   };
 
@@ -174,11 +178,13 @@ export default class MultipleChoice extends React.Component {
             );
           }
         })}
-        <div id="speech_to_text_box">
-          <button id="speech_button" type="button" onClick={this.handleSpeech}>
+        
+        {!this.state.guessBool && <div id="speech_to_text_box">
+          <button id="speech_button" type="button" onClick={this.handleSpeech} disabled={this.state.listening}>
             <i className="fas fa-microphone"></i>
           </button>
-        </div>
+        </div>}
+        {this.state.listening && <p>Listening...</p>}
         <button id="submit_button" type="button" onClick={this.handleSubmit}>
           Submit
         </button>
@@ -198,7 +204,7 @@ export default class MultipleChoice extends React.Component {
     if (this.state.speechBool) {
       speechErrorText = "Please say one of the options."
     }
-    
+
 
     return (
       <div id="mc_container">
@@ -209,7 +215,7 @@ export default class MultipleChoice extends React.Component {
           </>
         )}
 
-        {this.state.speechBool && <h3 style={{color: 'red'}}>{speechErrorText}</h3>}
+        {this.state.speechBool && <h3 style={{ color: 'red' }}>{speechErrorText}</h3>}
 
         {!this.state.guessBool ? this.MultipleChoiceForm() : ""}
 
