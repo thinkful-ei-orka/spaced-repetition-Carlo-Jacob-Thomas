@@ -161,11 +161,6 @@ class LearningRoute extends Component {
               required
               onChange={e => this.setAnswer(e)}
             />}
-            {!this.state.guessBool && <div id="speech_to_text_box">
-              <button id="speech_button" type="button" onClick={this.handleSpeech} disabled={this.state.listening}>
-                <i className="fas fa-microphone"></i>
-              </button>
-            </div>}
             {this.state.listening && <p>Listening...</p>}
             {!this.state.guessBool && <button className="guess-submit" type="submit">
               Submit your answer
