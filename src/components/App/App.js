@@ -11,6 +11,8 @@ import NotFoundRoute from "../../routes/NotFoundRoute/NotFoundRoute";
 import "./App.css";
 import fileContext from "../../contexts/fileContext";
 import Speech from '../../components/SpeechToText/SpeechToText';
+import MultipleChoice from "../../routes/MultipleChoice/MultipleChoice";
+
 
 export default class App extends Component {
   state = {
@@ -52,6 +54,7 @@ export default class App extends Component {
               <PrivateRoute exact path={"/"} component={DashboardRoute} />
               <PrivateRoute path={"/learn"} component={LearningRoute} />
               <PrivateRoute path={"/speech"} component={Speech} />
+              <PrivateRoute exact path={"/learn_mc"} component={MultipleChoice} />
               <PublicOnlyRoute
                 path={"/register"}
                 component={RegistrationRoute}

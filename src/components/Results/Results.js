@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '../Button/Button';
+import './Results.css'
 
 class Results extends React.Component {
     constructor(props) {
@@ -17,7 +18,7 @@ class Results extends React.Component {
 
         return (
             <div className="DisplayFeedback">
-                <p className="results-p">The correct translation for {this.props.original} was {this.props.answer} and you chose {this.props.guess}!</p>
+                <p className="results-p">The correct translation for <span className='word-strong'>{this.props.original}</span> was <span className='word-strong'>{this.props.answer}</span> and you chose <span className='word-strong'>{this.props.guess}</span>!</p>
                 <Button onClick={this.props.onNextWordClick}>
                 Try another word!
                 </Button>

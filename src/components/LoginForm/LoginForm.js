@@ -49,7 +49,7 @@ class LoginForm extends Component {
         className='main-form center'
         onSubmit={this.handleSubmit}
       >
-        <div role='alert'>
+        <div className='error-alert' role='alert'>
           {error && <p>{error}</p>}
         </div>
         <div>
@@ -79,7 +79,7 @@ class LoginForm extends Component {
               Login
               </Button>
             {' '}
-            <Link to='/login'>Don't have an account?</Link>
+            <Link to='/register'>Don't have an account?</Link>
           </footer>
 
       </form>

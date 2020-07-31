@@ -38,3 +38,13 @@ footer {
     margin-left: auto;
     margin-right: auto;
 }
+
+@media screen and (min-width: 768px) {
+
+}
+
+@media screen and (min-width: 1024px) {
+    .main-form {
+        max-width: 50%;
+    }
+}

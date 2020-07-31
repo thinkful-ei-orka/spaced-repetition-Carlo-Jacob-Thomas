@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import LanguageApiService from '../../services/language-service';
 import './LearningRoute.css';
 import { Input, Required, Label } from '../../components/Form/Form';
+import { CSSTransition } from 'react-transition-group';
 import Button from '../../components/Button/Button';
 import Results from '../../components/Results/Results';
 import Question from '../../components/Question/Question';
@@ -65,8 +66,7 @@ class LearningRoute extends Component {
         this.setState({
           wordIncorrectCount: head.wordIncorrectCount,
           wordCorrectCount: head.wordCorrectCount,
-          
-          guessBool: false
+          guessBool: false,
         })
       })
 
@@ -99,11 +99,16 @@ class LearningRoute extends Component {
     }
     if (!this.state.isCorrect && this.state.guessBool) {
       headerText = 'Good try, but not quite right :('
-    } 
+    }
 
     return (
+      <CSSTransition
+            in={!this.state.loading}
+            timeout={200}
+            classNames='guess-anim'
+            unmountOnExit>
       <section className="learning-container">
-        {!this.state.loading && <><h2>{headerText}</h2><span>{this.state.nextWord}</span></>}
+        {!this.state.loading && <><h2>{headerText}</h2><span className='word-translate'>{this.state.nextWord}</span></>}
         <form id="learning-form" onSubmit={this.handleSendGuess}>
 
           {/* {!this.state.guessBool && <Question handleSendGuess={this.handleSendGuess} />} */}
@@ -118,17 +123,23 @@ class LearningRoute extends Component {
             required
             onChange={e => this.setAnswer(e)}
           />}
-          {!this.state.guessBool && <button type="submit">
+          {!this.state.guessBool && <button className="guess-submit" type="submit">
             Submit your answer
           </button>}
-
-          {this.state.guessBool && <Results isCorrect={this.state.isCorrect} totalScore={this.state.totalScore} guess={this.state.guessTerm} answer={this.state.answer} original={this.state.nextWord} onNextWordClick={this.handleNextWord} />}
+          <CSSTransition
+            in={this.state.guessBool}
+            timeout={500}
+            classNames='guess-anim'
+            unmountOnExit>
+            <Results isCorrect={this.state.isCorrect} totalScore={this.state.totalScore} guess={this.state.guessTerm} answer={this.state.answer} original={this.state.nextWord} onNextWordClick={this.handleNextWord} />
+          </CSSTransition>
 
         </form>
 
+
         <div className="results-container center DisplayScore">
           <p>Your total score is: {this.state.totalScore}</p>
-        </div>    
+        </div>
 
         <div className="results-container center">
           <p>You have answered this word correctly {this.state.wordCorrectCount} times.</p>
@@ -136,6 +147,7 @@ class LearningRoute extends Component {
         </div>
 
       </section>
+      </CSSTransition>
     );
   }
 }

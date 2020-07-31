@@ -3,16 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.15",
-    "@fortawesome/free-solid-svg-icons": "^5.7.2",
-    "@fortawesome/react-fontawesome": "^0.1.4",
+    "@fortawesome/fontawesome-svg-core": "^1.2.30",
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "@fortawesome/react-fontawesome": "^0.1.11",
     "classnames": "^2.2.6",
     "jwt-decode": "^2.2.0",
-    "react": "^16.8.3",
-    "react-dom": "^16.8.3",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5",
-    "react-speech-recognition": "^3.0.2"
+    "react-transition-group": "^4.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -32,8 +32,8 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "cypress": "^3.2.0",
-    "jsonwebtoken": "^8.5.0",
+    "cypress": "^3.8.3",
+    "jsonwebtoken": "^8.5.1",
     "unfetch": "^4.1.0"
   }
 }
