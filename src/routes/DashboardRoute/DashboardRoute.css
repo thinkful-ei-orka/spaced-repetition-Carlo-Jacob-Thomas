@@ -24,24 +24,42 @@ h3 {
 
 .dashboard h2 {
     font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.dashboard p {
+    padding-top: 10px;
 }
 
 #learn_button {
     font-size: 1.2em;
     width: 50vw;
+    cursor: pointer;
     padding: 10px 20px;
     margin: 10px auto;
     border-radius: 10px;
     background-color: #d9f2c7;
 }
 
+
+#learn_button:hover {
+    transition: .1s ease-in;
+    background-color: #9cc493;
+}
+
 #learn_mc_button {
     font-size: 1.2em;
+    cursor: pointer;
     width: 50vw;
     padding: 10px 20px;
     margin: 10px auto;
     border-radius: 10px;
     background-color: #d9f2c7;
+}
+
+#learn_mc_button:hover {
+    transition: .1s ease-in;
+    background-color: #9cc493;
 }
 
 .word_item {
