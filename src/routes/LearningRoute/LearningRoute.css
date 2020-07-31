@@ -60,10 +60,16 @@
     width: 75px;
     height: 75px;
     border-radius: 50%;
+    cursor: pointer;
     border: 2px solid grey;
     background-color: #d9f2c7;
     margin: 0 auto;
 }
+
+#speech_button:hover {
+    transition: .1s ease-in;
+    background-color: #9cc493;
+  }
 
 .guess-anim-enter{
     opacity: 0;

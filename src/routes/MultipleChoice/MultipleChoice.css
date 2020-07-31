@@ -2,27 +2,42 @@
   background-color: rgb(0, 38, 255);
 }
 
-#mc_options_box {
-  text-align: center;
-  margin-top: 50px;
-  margin-left: 25%;
-  margin-right: 25%;
+.mc-div-container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-flow: column wrap;
+}
+
+#mc_container {
+  display: flex;
+  flex-flow: column wrap;
   align-items: center;
+}
+
+#mc_container span {
+  font-size: 2em;
+  margin: 10px auto 30px auto;
+}
+
+#mc_options_box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+  height: 40vh;
+  width: 80vw;
+  margin: 0 auto;
 }
 
 .mc_option,
 .mc_option_selected {
-  float: left;
-  margin: 8px 0px 0px 8px;
-  padding: 4px 8px;
-
-  font-size: 14px;
+  font-size: 1em;
+  font-family: 'Varela Round';
+  height: 80%;
+  width: 80%;
+  border-radius: 15px;
   cursor: pointer;
   outline: none;
-  width: 100px;
 }
 
 .mc_option {
@@ -31,6 +46,7 @@
 }
 
 .mc_option:hover {
+  transition: .2s ease-in-out;
   background: #d47114;
   color: #fff;
 }
@@ -38,4 +54,44 @@
 #speech_button {
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+#submit_button {
+  padding: 20px;
+  cursor: pointer;
+  font-family: 'Varela Round';
+  margin: 10px auto;
+  background-color: #d9f2c7;
+  font-size: 1.2em;
+  border-radius: 10px;
+}
+
+#submit_button:hover {
+  transition: .1s ease-in;
+  background-color: #9cc493;
+}
+
+@media screen and (min-width: 768px) {
+
+  .mc_option,
+  .mc_option_selected {
+    font-size: 1.5em;
+    font-family: 'Varela Round';
+    height: 80%;
+    width: 80%;
+    border-radius: 15px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  #mc_options_box {
+    width: 60vw;
+  }
+
+}
+
+@media screen and (min-width: 1024px) {
+  #mc_options_box {
+    width: 50vw;
+  }
 }

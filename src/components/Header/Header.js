@@ -15,14 +15,14 @@ class Header extends Component {
     return (
       <div>
         <span className='header-username'>
-          {this.context.user.name}
+          <i class="fas fa-user-circle"></i>{this.context.user.name}
         </span>
         <nav>
           <NavLink
             onClick={this.handleLogoutClick}
             className="nav-link"
             to='/login'>
-            Logout
+            Logout <i class="fas fa-door-open"></i>
           </NavLink>
         </nav>
       </div>
@@ -30,7 +30,7 @@ class Header extends Component {
   }
 
   renderLoginLink() {
-    if(window.location.pathname === '/login') {
+    if (window.location.pathname === '/login') {
       return;
     } else {
       return (
@@ -50,6 +50,7 @@ class Header extends Component {
       <header>
         <h1>
           <Link to='/'>
+          <i id='title-icon' class="fab fa-think-peaks"></i>
             Speak-Easy
           </Link>
         </h1>
