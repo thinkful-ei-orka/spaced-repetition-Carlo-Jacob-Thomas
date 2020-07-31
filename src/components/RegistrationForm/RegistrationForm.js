@@ -96,6 +96,7 @@ class RegistrationForm extends Component {
               required
             />
           </div>
+          <div>
           <select
             value={this.state.selectedLanguage}
             key='select_box'
@@ -116,6 +117,7 @@ class RegistrationForm extends Component {
                 })
               : ""}
           </select>
+          </div>
           <footer className="center">
             <Button type="submit">Sign up</Button>{" "}
             <Link to="/login">Already have an account?</Link>

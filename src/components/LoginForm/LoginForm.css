@@ -4,7 +4,9 @@ footer a {
 
 .main-form {
     width: 80vw;
-    border: 1px solid black;
+    background: rgb(255,255,255);
+    background: linear-gradient(173deg, rgba(255,255,255,1) 0%, rgba(228,228,228,1) 100%);
+    border: 3px solid #4a4a4a;
     border-radius: 10px;
 }
 
@@ -52,8 +54,11 @@ footer a {
 }
 
 @media screen and (min-width: 768px) {
-
+    .main-form {
+        max-width: 50%;
+    }
 }
+
 
 @media screen and (min-width: 1024px) {
     .main-form {

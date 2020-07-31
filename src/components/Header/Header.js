@@ -44,7 +44,7 @@ class Header extends Component {
       <header>
         <h1>
           <Link to='/'>
-            Spaced repetition
+            Speak-Easy
           </Link>
         </h1>
         {TokenService.hasAuthToken()

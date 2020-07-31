@@ -7,7 +7,15 @@ nav {
 .nav-link {
     margin-left: 10px;
     margin-right: 10px;
+    font-size: 1.2em;
+    text-decoration: none;
+    color: black;
     cursor: pointer;
+}
+
+.nav-link:hover {
+    transition: .1s ease-in;
+    color: #a1a1a1;
 }
 
 .header-username {
@@ -29,4 +37,26 @@ h1 a {
     text-decoration: none;
     color: black;
     cursor: pointer;
+}
+
+
+@media screen and (min-width: 768px) {
+    .nav-link {
+        margin-right: 30px;
+    }
+
+    .header-username {
+        margin-left: 30px;
+    }
+}
+
+
+@media screen and (min-width: 1024px) {
+    .nav-link {
+        margin-right: 50px;
+    }
+
+    .header-username {
+        margin-left: 50px;
+    }
 }
