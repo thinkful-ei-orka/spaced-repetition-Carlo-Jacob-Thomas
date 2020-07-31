@@ -31,9 +31,16 @@
 }
 
 .guess-submit {
-    padding: 5px 0;
+    padding: 10px 0;
+    font-size: 1.2em;
     border-radius: 10px;
+    background-color: #d9f2c7;
     margin: 10px 0;
+}
+
+.guess-submit:hover {
+    transition: .1s ease-in;
+    background-color: #9cc493;
 }
 
 .results-container {

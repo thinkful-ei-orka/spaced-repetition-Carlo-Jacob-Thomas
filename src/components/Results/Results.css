@@ -1,7 +1,7 @@
 .DisplayFeedback {
     display: flex;
     flex-flow: column nowrap;
-
+    align-items: center;
 }
 
 .results-p {
@@ -12,4 +12,17 @@
 .word-strong {
     font-size: 1.4em;
     padding: 0 5px;
+}
+
+.nextword-button {
+    padding: 10px 0;
+    font-size: 1.2em;
+    border-radius: 10px;
+    background-color: #d9f2c7;
+    margin: 10px 0;
+}
+
+.nextword-button:hover {
+    transition: .1s ease-in;
+    background-color: #9cc493;
 }
