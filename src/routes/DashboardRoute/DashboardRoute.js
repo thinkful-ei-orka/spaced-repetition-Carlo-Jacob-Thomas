@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import LanguageService from "../../services/language-service";
 import fileContext from "../../contexts/fileContext";
+import './DashboardRoute.css';
 
 class DashboardRoute extends Component {
   state = {
@@ -18,7 +19,7 @@ class DashboardRoute extends Component {
   render() {
     return (
       <section className="dashboard">
-        <h2>Learn {this.context.language.name}</h2>
+        <h2>Learn {this.context.language.name}!</h2>
         <Link to="/learn">
           <button id="learn_button">Start practicing</button>
         </Link>
@@ -30,8 +31,8 @@ class DashboardRoute extends Component {
               return (
                 <li key={index} className="word_item">
                   <h4>{word.original}</h4>
-                  <p>correct answer count: {word.correct_count}</p>
-                  <p>incorrect answer count: {word.incorrect_count}</p>
+                  <p>Correct answer count: {word.correct_count}</p>
+                  <p>Incorrect answer count: {word.incorrect_count}</p>
                 </li>
               );
             })}

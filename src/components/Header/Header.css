@@ -1,13 +1,18 @@
 nav {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 .nav-link {
     margin-left: 10px;
     margin-right: 10px;
     cursor: pointer;
+}
+
+.header-username {
+    float: left;
+    margin-left: 10px;
 }
 
 .header-link {

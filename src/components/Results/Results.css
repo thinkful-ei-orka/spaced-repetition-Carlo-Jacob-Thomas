@@ -1,0 +1,15 @@
+.DisplayFeedback {
+    display: flex;
+    flex-flow: column nowrap;
+
+}
+
+.results-p {
+    font-size: 1.2em;
+    line-height: 1.5em;
+}
+
+.word-strong {
+    font-size: 1.4em;
+    padding: 0 5px;
+}
