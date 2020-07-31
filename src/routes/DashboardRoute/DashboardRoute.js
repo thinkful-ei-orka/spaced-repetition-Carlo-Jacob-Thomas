@@ -23,6 +23,9 @@ class DashboardRoute extends Component {
         <Link to="/learn">
           <button id="learn_button">Start practicing</button>
         </Link>
+        <Link to="/learn_mc">
+          <button id="learn_mc_button">Multiple choice</button>
+        </Link>
         <p>Total correct answers: {this.context.language.total_score}</p>
         <section className="word_list_box">
           <h3>Words to practice</h3>

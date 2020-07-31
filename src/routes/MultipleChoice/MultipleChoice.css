@@ -1,0 +1,41 @@
+.mc_option_selected {
+  background-color: rgb(0, 38, 255);
+}
+
+#mc_options_box {
+  text-align: center;
+  margin-top: 50px;
+  margin-left: 25%;
+  margin-right: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mc_option,
+.mc_option_selected {
+  float: left;
+  margin: 8px 0px 0px 8px;
+  padding: 4px 8px;
+
+  font-size: 14px;
+  cursor: pointer;
+  outline: none;
+  width: 100px;
+}
+
+.mc_option {
+  background: #ffb787;
+  color: #00403c;
+}
+
+.mc_option:hover {
+  background: #d47114;
+  color: #fff;
+}
+
+#speech_button {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
