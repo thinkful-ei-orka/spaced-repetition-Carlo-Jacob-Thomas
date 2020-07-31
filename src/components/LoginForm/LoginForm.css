@@ -47,11 +47,13 @@ footer a {
     font-size: 1.2em;
     padding: 10px 5px;
     border-radius: 10px;
+    background-color: #d9f2c7;
+    cursor: pointer;
 }
 
 .Button:hover, .Button:active {
     transition: .2s ease-in;
-    background-color: #cfcfcf;
+    background-color: #9cc493;
 }
 
 @media screen and (min-width: 768px) {
