@@ -15,10 +15,11 @@ footer a {
     flex-direction: column;
 }
 
-.error-alert {
+.error-alert p {
     border-radius: 10px;
-    background-color: lightpink;
-    margin: 0 auto 10px auto;
+    background-color: #f5c1bc;
+    margin-bottom: 10px;
+    padding: 10px;
     text-align: center;
 }
 

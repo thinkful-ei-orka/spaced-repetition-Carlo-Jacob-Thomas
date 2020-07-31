@@ -41,6 +41,14 @@ footer {
     margin-right: auto;
 }
 
+.error-message p {
+    border-radius: 10px;
+    background-color: #f5c1bc;
+    margin-bottom: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
 #language_select {
     margin: 10px auto;
     font-family: 'Varela Round', sans-serif;
