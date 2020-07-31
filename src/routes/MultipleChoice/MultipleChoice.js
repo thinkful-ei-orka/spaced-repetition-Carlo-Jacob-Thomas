@@ -152,6 +152,14 @@ export default class MultipleChoice extends React.Component {
   MultipleChoiceForm = () => {
     return (
       <div id="mc_options_box">
+
+        {!this.state.guessBool && <div id="speech_to_text_box">
+          <button id="speech_button" type="button" onClick={this.handleSpeech} disabled={this.state.listening}>
+            <i className="fas fa-microphone"></i>
+          </button>
+        </div>}
+        {this.state.listening && <p>Listening...</p>}
+
         {this.state.options.map((option) => {
           if (this.state.guessTerm === option) {
             return (
@@ -178,13 +186,7 @@ export default class MultipleChoice extends React.Component {
             );
           }
         })}
-        
-        {!this.state.guessBool && <div id="speech_to_text_box">
-          <button id="speech_button" type="button" onClick={this.handleSpeech} disabled={this.state.listening}>
-            <i className="fas fa-microphone"></i>
-          </button>
-        </div>}
-        {this.state.listening && <p>Listening...</p>}
+
         <button id="submit_button" type="button" onClick={this.handleSubmit}>
           Submit
         </button>
