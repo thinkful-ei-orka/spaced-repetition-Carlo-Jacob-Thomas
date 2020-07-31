@@ -15,8 +15,10 @@ footer {
 .main-form {
     width: 80%;
     padding: 20px;
+    background: rgb(255,255,255);
+    background: linear-gradient(173deg, rgba(255,255,255,1) 0%, rgba(228,228,228,1) 100%);
     padding-bottom: 10px;
-    border: 1px solid black;
+    border: 1px solid #4a4a4a;
     border-radius: 10px;
     margin-bottom: 20px;
     margin-top: 10px;
@@ -39,8 +41,18 @@ footer {
     margin-right: auto;
 }
 
-@media screen and (min-width: 768px) {
+#language_select {
+    margin: 10px auto;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 1.5em;
+    padding: 5px;
+    border-radius: 5px;
+}
 
+@media screen and (min-width: 768px) {
+    .main-form {
+        max-width: 50%;
+    }
 }
 
 @media screen and (min-width: 1024px) {
