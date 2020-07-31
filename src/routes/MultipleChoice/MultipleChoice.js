@@ -127,7 +127,6 @@ export default class MultipleChoice extends React.Component {
         answer: summary.answer,
         isCorrect: summary.isCorrect,
         guessBool: true,
-        guessTerm: "",
         speechBool: false,
       });
     });
