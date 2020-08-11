@@ -19,10 +19,21 @@ class RegistrationForm extends Component {
 
   firstInput = React.createRef();
 
+  confirmPasswords = (password, retype) => {
+    if(password === retype) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   handleSubmit = (ev) => {
     ev.preventDefault();
-    const { name, username, password, language } = ev.target;
-    console.log(language.value);
+    const { name, username, password, retype, language } = ev.target;
+    console.log(password, retype);
+    let checkPasswordFields = this.confirmPasswords(password.value, retype.value);
+    if(checkPasswordFields) {
+      console.log(language.value);
     AuthApiService.postUser({
       name: name.value,
       username: username.value,
@@ -38,6 +49,12 @@ class RegistrationForm extends Component {
       .catch((res) => {
         this.setState({ error: res.error });
       });
+    } else {
+      this.setState({
+        error: 'Passwords do not match.  Please try again.'
+      })
+    }
+    
   };
 
   componentDidMount() {
@@ -47,7 +64,7 @@ class RegistrationForm extends Component {
   getLanguages = () => {
     LanguageApiService.getLanguages().then((res) => {
       this.setState({
-        languages: res.languages,
+        languages: [...new Set(res.languages)],
       });
     });
   };
@@ -94,6 +111,18 @@ class RegistrationForm extends Component {
             <Input
               id="registration-password-input"
               name="password"
+              type="password"
+              required
+            />
+          </div>
+          <div>
+            <Label htmlFor="registration-retype-password-input">
+              Retype password
+              <Required />
+            </Label>
+            <Input
+              id="registration-retype-password-input"
+              name="retype"
               type="password"
               required
             />
