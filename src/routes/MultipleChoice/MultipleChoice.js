@@ -52,6 +52,7 @@ export default class MultipleChoice extends React.Component {
   }
 
   getOptions() {
+    console.log(this.state.nextWord);
     let correctAnswer = this.context.words.find(
       (word) => word.original === this.state.nextWord
     ).translation;
@@ -59,7 +60,7 @@ export default class MultipleChoice extends React.Component {
     while (options.length !== 4) {
       let index = Math.floor(Math.random() * this.context.words.length);
       options.push(this.context.words[index].translation);
-      options = [...new Set(options)];
+      options = [...new Set(options)].sort(() => Math.random() - 0.5);
     }
     this.setState({
       options: options,
@@ -129,7 +130,10 @@ export default class MultipleChoice extends React.Component {
         guessBool: true,
         speechBool: false,
       });
-    });
+    })
+    .then(() => {
+      this.getOptions();
+    })
   };
 
   handleNextWord = (event) => {
@@ -197,6 +201,7 @@ export default class MultipleChoice extends React.Component {
   };
 
   render() {
+    console.log(this.context.words);
     let headerText = "Translate the word:";
     let speechErrorText = "";
     if (this.state.isCorrect && this.state.guessBool) {
