@@ -11,6 +11,7 @@ import NotFoundRoute from "../../routes/NotFoundRoute/NotFoundRoute";
 import "./App.css";
 import fileContext from "../../contexts/fileContext";
 import MultipleChoice from "../../routes/MultipleChoice/MultipleChoice";
+import TextToSpeech from "../TextToSpeech/TextToSpeech";
 
 
 export default class App extends Component {
@@ -57,6 +58,7 @@ export default class App extends Component {
                 component={RegistrationRoute}
               />
               <PublicOnlyRoute path={"/login"} component={LoginRoute} />
+              <PublicOnlyRoute path={"/text_speech"} component={TextToSpeech} />
               <Route component={NotFoundRoute} />
             </Switch>
           </main>
