@@ -3,12 +3,16 @@ import fileContext from "../../contexts/fileContext";
 import LanguageApiService from "../../services/language-service";
 import Results from "../../components/Results/Results";
 import "./MultipleChoice.css";
+import ISOStore from "../../components/TextToSpeech/ISOStore";
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
 
 recognition.lang = 'en-US';
 // recognition.lang = 'es-MX';
+
+var msg = new SpeechSynthesisUtterance();
+msg.text = "bien y tu como estas";
 
 export default class MultipleChoice extends React.Component {
   static contextType = fileContext;
@@ -32,9 +36,14 @@ export default class MultipleChoice extends React.Component {
   }
   componentDidMount() {
 
-    LanguageApiService.getWords()
+    if(this.context.language === "") {
+      LanguageApiService.getWords()
       .then((res) => this.context.setLangAndWords(res))
-      .then(() => LanguageApiService.getHead())
+      .catch((error) => this.setState({ error: error }));
+    }
+    let lang = Object.keys(ISOStore).find(key => ISOStore[key] === this.context.language.name)
+    msg.lang = lang;
+      LanguageApiService.getHead()
       .then((head) => {
         this.setState({
           nextWord: head.nextWord,
@@ -199,6 +208,12 @@ export default class MultipleChoice extends React.Component {
       </div>
     );
   };
+  playSound = () => {
+    msg.text = this.state.nextWord;
+    window.speechSynthesis.speak(msg);
+  }
+
+  
 
   render() {
     console.log(this.context.words);
@@ -220,7 +235,7 @@ export default class MultipleChoice extends React.Component {
         {!this.state.loading && (
           <>
             <h2>{headerText}</h2>
-            <span>{this.state.nextWord}</span>
+            <span>{this.state.nextWord}{'  '}<button onClick={this.playSound}><i class="fas fa-volume-up"></i></button></span>
           </>
         )}
 

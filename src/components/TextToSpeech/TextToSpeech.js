@@ -11,9 +11,7 @@ export default class TextToSpeech extends React.Component {
         window.speechSynthesis.speak(msg);
         console.log(msg);
     }
-    componentDidMount() {
-        
-    }
+
     render () {
         return (
             <button onClick={this.playSound}>hello</button>

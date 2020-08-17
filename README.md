@@ -1,4 +1,29 @@
-# Spaced Repetition Capstone
+# Speak-Easy  - client
+
+
+Speak-Easy is a language learning application that assists users in learning how to speak multiple foreign languages by using spaced repetition. The app encourages the user to listen to the pronunciation of the word, then use their microphone to translate the word. The word list is structured in the database using a linked list.
+
+
+### Live Link
+
+The live site can be accessed at [https://speak-easy-lake.vercel.app/]
+
+
+## Server
+
+This app is meant to run with [https://github.com/thinkful-ei-orka/spaced-repetition-api-Carlo-Thomas-Jacob].
+
+Please look at the README.md for more information on utilizing the server.
+
+### To Use With Server
+
+Please update the API_ENDPOINT in the config.js to point to where your server is running.
+
+You will need a TOKEN_KEY to access the Speak-Easy API server, which should be kept secret.
+
+## Tech Stack
+
+REACT, JavaScript, CSS3, HTML5, SCSS, NodeJS, ExpressJS, PostgreSQL
 
 ## Setup
 

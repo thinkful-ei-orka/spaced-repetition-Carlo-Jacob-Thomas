@@ -12,6 +12,8 @@ import "./App.css";
 import fileContext from "../../contexts/fileContext";
 import MultipleChoice from "../../routes/MultipleChoice/MultipleChoice";
 import TextToSpeech from "../TextToSpeech/TextToSpeech";
+import TokenService from "../../services/token-service";
+import LanguageApiService from "../../services/language-service";
 
 
 export default class App extends Component {
@@ -35,7 +37,15 @@ export default class App extends Component {
     })
   };
 
+
+
   render() {
+
+    if (TokenService.hasAuthToken() && this.state.language === "") {
+      LanguageApiService.getWords()
+      .then((res) => this.state.setLangAndWords(res))
+      .catch((error) => this.setState({ error: error }));
+    }
     const value = {
       language: this.state.language,
       words: this.state.words,

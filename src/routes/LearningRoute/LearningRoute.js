@@ -6,6 +6,10 @@ import { CSSTransition } from 'react-transition-group';
 import Button from '../../components/Button/Button';
 import Results from '../../components/Results/Results';
 import Question from '../../components/Question/Question';
+import fileContext from '../../contexts/fileContext';
+import ISOStore from '../../components/TextToSpeech/ISOStore';
+var msg = new SpeechSynthesisUtterance();
+msg.text = "bien y tu como estas";
 
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 const recognition = new SpeechRecognition();
@@ -14,6 +18,7 @@ recognition.lang = 'en-US';
 // recognition.lang = 'es-MX';
 
 class LearningRoute extends Component {
+  static contextType = fileContext;
   constructor(props) {
     super(props);
     this.state = {
@@ -109,8 +114,16 @@ class LearningRoute extends Component {
   }
 
   componentDidMount() {
+    if(this.context.language === "") {
+      LanguageApiService.getWords()
+      .then((res) => this.context.setLangAndWords(res))
+      .catch((error) => this.setState({ error: error }));
+    }
     LanguageApiService.getHead()
       .then(head => {
+        console.log(this.context.language)
+        let lang = Object.keys(ISOStore).find(key => ISOStore[key] === this.context.language.name)
+        msg.lang = lang;
         this.setState({
           nextWord: head.nextWord,
           wordIncorrectCount: head.wordIncorrectCount,
@@ -120,6 +133,11 @@ class LearningRoute extends Component {
           guessTerm: ''
         })
       })
+  }
+
+  playSound = () => {
+    msg.text = this.state.nextWord;
+    window.speechSynthesis.speak(msg);
   }
 
   render() {
@@ -139,14 +157,14 @@ class LearningRoute extends Component {
         classNames='guess-anim'
         unmountOnExit>
         <section className="learning-container">
-          {!this.state.loading && <><h2>{headerText}</h2><span className='word-translate'>{this.state.nextWord}</span></>}
+          {!this.state.loading && <><h2>{headerText}</h2><span className='word-translate'>{this.state.nextWord}{'  '}<button onClick={this.playSound}><i class="fas fa-volume-up"></i></button></span></>}
           <form id="learning-form" onSubmit={this.handleSendGuess}>
 
             {/* {!this.state.guessBool && <Question handleSendGuess={this.handleSendGuess} />} */}
 
-            {!this.state.guessBool && <Label htmlFor='learn-guess-input' className="text-center">
+            {!this.state.guessBool && <><Label htmlFor='learn-guess-input' className="text-center">
               What's the translation for this word?
-          </Label>}
+          </Label></>}
           
             {!this.state.guessBool && <div id="speech_to_text_box">
               <button id="speech_button" type="button" onClick={this.handleSpeech}>
