@@ -59,15 +59,13 @@ class RegistrationForm extends Component {
 
   componentDidMount() {
     this.firstInput.current.focus();
-  }
-
-  getLanguages = () => {
     LanguageApiService.getLanguages().then((res) => {
       this.setState({
         languages: [...new Set(res.languages)],
       });
     });
-  };
+  }
+
 
   setLangSelection = (e) => {
     this.setState({
@@ -77,9 +75,6 @@ class RegistrationForm extends Component {
 
   render() {
     const { error } = this.state;
-    if (this.state.languages === null) {
-      this.getLanguages();
-    }
     return (
       <>
         <form className="main-form center" onSubmit={this.handleSubmit}>
